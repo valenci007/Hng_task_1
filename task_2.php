@@ -62,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     
         $myResponse = [
-            'slackUsername' => "AQIM",
+            'slackUsername' => "valenci007",
             'operation_type' => $data['operation_type'],
             'result' => intval($result),
         ];
