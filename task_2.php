@@ -3,7 +3,7 @@
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 
-$operationArray = ['addition', 'subtraction', 'division'];
+$operationArray = ['addition', 'subtraction', 'multiplication'];
 $validRequestKeys = ['operation_type', 'x', 'y'];
 $acceptedDataTypes = ['integer', 'double'];
 
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     
     if(!in_array($data['operation_type'], $operationArray)){
-        echo "invalid operation_type value ". $data['operation_type']. " operation_type value must be addition or  subtraction or division" ;
+        echo "invalid operation_type value ". $data['operation_type']. " operation_type value must be addition or subtraction or multiplication" ;
         return ;
     }
     if(!in_array(gettype($data['x']), $acceptedDataTypes) ){
@@ -53,8 +53,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             case 'subtraction':
                 $result =  $data['x'] - $data['y'];
                 break;
-            case 'division':
-                $result = $data['x'] / $data['y'];
+            case 'multiplication':
+                $result = $data['x'] * $data['y'];
                 break; 
             default:
                 # code...
@@ -71,11 +71,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         http_response_code(200);
         echo ($jsonResponse);
     
-    } catch (DivisionByZeroError $th) {
-        //throw $th;
-        http_response_code(400);
-        echo json_encode("Y cannot be Zero");
-    }
+    } 
     catch (ErrorException $th) {
         //throw $th;
         http_response_code(400);
